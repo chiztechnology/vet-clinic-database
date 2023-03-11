@@ -41,12 +41,13 @@ CREATE TABLE vets(
 
 -- join tables
 CREATE TABLE specializations(
-    id_species INT references species(id);
-    id_vet INT references vets(id);
+    id_species INT,
+    id_vet INT
 );
 
 CREATE TABLE visits(
-    id_animal INT references animals(id);
-    id_vet INT references vets(id);
+    animals_id INT,
+    vets_id INT,
+    date_of_the_visit date
 );
 
