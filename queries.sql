@@ -27,3 +27,10 @@ UPDATE animals set weight_kg = (weight_kg * -1) WHERE id !=0;
 ROLLBACK TO delete_recent_animals;
 UPDATE animals set weight_kg = (weight_kg * -1) WHERE weight_kg < 0;
 COMMIT;
+
+SELECT COUNT(*) from animals;
+SELECT COUNT(*) from animals WHERE escape_attempts = 0;
+SELECT AVG(weight_kg) from animals;
+SELECT sum(escape_attempts) as total_escape from animals group by (neutered);
+SELECT species, MIN(weight_kg) as Minimum_Weight , MAX(weight_kg) as Maximum_Weight from animals GROUP BY(species);
+SELECT AVG(escape_attempts) from animals WHERE date_of_birth BETWEEN '1990-01-01' and '2000-12-31' GROUP BY(species);
