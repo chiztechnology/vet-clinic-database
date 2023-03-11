@@ -34,3 +34,37 @@ SELECT AVG(weight_kg) from animals;
 SELECT sum(escape_attempts) as total_escape from animals group by (neutered);
 SELECT species, MIN(weight_kg) as Minimum_Weight , MAX(weight_kg) as Maximum_Weight from animals GROUP BY(species);
 SELECT AVG(escape_attempts) from animals WHERE date_of_birth BETWEEN '1990-01-01' and '2000-12-31' GROUP BY(species);
+
+UPDATE animals set species_id = 2 WHERE name like '%mon';
+UPDATE animals set species_id = 1 WHERE species_id is null;
+
+UPDATE animals set owner_id = 1 where id = 1;
+UPDATE animals set owner_id = 2 where id = 2 or id = 3;
+UPDATE animals set owner_id = 3 where id = 4 or id = 6;
+UPDATE animals set owner_id = 4 where id = 5 or id = 7 or id = 10;
+UPDATE animals set owner_id = 5  where id = 9 or id = 8;
+
+SELECT animals.name from animals
+INNER JOIN owners on owners.id = animals.owner_id
+where owners.full_name = 'Melody Pond';
+
+SELECT animals.* from animals
+INNER JOIN species on species.id = animals.species_id
+WHERE species.name = 'Pokemon';
+
+SELECT owners.full_name, animals.name from animals
+RIGHT JOIN owners on owners.id = animals.owner_id;
+
+SELECT COUNT(animals.*), species.name from animals
+INNER JOIN species on species.id = animals.species_id
+GROUP BY species.name;
+
+SELECT an.name from animals as an
+INNER JOIN species as sp on sp.id = an.species_id
+INNER JOIN owners as ow on ow.id = an.owner_id
+
+WHERE ow.full_name = 'Jennifer Orwell' and sp.name ='Digimon';
+
+SELECT a.* from animals as a
+INNER JOIN owners as ow on ow.id = a.owner_id
+WHERE ow.full_name = 'Dean Winchester' and a.escape_attempts = 0;
