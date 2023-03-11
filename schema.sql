@@ -12,3 +12,7 @@ CREATE TABLE animals (
 );
 
 ALTER TABLE animals ADD COLUMN species varchar(100);
+
+BEGIN;
+ALTER TABLE animals ALTER COLUMN species type unknown;
+ROLLBACK;
