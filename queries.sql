@@ -68,3 +68,41 @@ WHERE ow.full_name = 'Jennifer Orwell' and sp.name ='Digimon';
 SELECT a.* from animals as a
 INNER JOIN owners as ow on ow.id = a.owner_id
 WHERE ow.full_name = 'Dean Winchester' and a.escape_attempts = 0;
+
+
+SELECT animals.name FROM visits 
+JOIN animals ON animals_id = animals.id 
+WHERE vets_id = 1 
+ORDER BY date_of_the_visit DESC LIMIT 1;
+
+SELECT animals.name FROM visits 
+JOIN animals ON animals_id = animals.id 
+WHERE vets_id = 2;
+
+SELECT vets.name, species.name FROM vets 
+LEFT JOIN specializations ON vets_id = vets.id 
+LEFT JOIN species ON species_id = species.id;
+
+SELECT animals.name FROM animals 
+JOIN visits ON animals.id = animals_id 
+WHERE vets_id = 3 AND date_of_the_visit BETWEEN '2020-04-01' AND '2020-08-30';
+
+SELECT animals.name FROM animals 
+JOIN visits ON animals.id = animals_id 
+GROUP BY animals.name ORDER BY COUNT(*) DESC LIMIT 1;
+
+SELECT animals.name FROM animals 
+JOIN visits ON animals.id = animals_id 
+WHERE vets_id = 2 ORDER BY date_of_the_visit LIMIT 1;
+
+SELECT animals.name, animals.date_of_birth, animals.escape_attempts, animals.weight_kg, date_of_the_visit, vets.name as vets_name, vets.age as vets_age, vets.date_of_graduation FROM animals 
+JOIN visits ON animals.id = animals_id JOIN vets ON vets_id = vets.id 
+ORDER BY date_of_the_visit DESC LIMIT 1;
+
+SELECT COUNT(*) FROM visits JOIN specializations ON visits.vets_id = specializations.vets_id 
+JOIN animals ON animals.species_id = specializations.vets_id WHERE ;
+
+SELECT vets.name,species.name FROM vets 
+JOIN specializations ON vets.id!=specializations.vets_id 
+JOIN species ON species.id !=specializations.species_id 
+WHERE vets.name='Maisy Smith' LIMIT 1;

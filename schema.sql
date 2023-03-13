@@ -31,3 +31,23 @@ CREATE TABLE species(
 ALTER TABLE animals DROP COLUMN species;
 ALTER TABLE animals ADD COLUMN species_id INT references species(id);
 ALTER TABLE animals ADD COLUMN owner_id INT references owners(id);
+
+CREATE TABLE vets(
+    id SERIAL PRIMARY KEY,
+    name varchar(100),
+    age int,
+    date_of_graduation date
+);
+
+-- join tables
+CREATE TABLE specializations(
+    id_species INT,
+    id_vet INT
+);
+
+CREATE TABLE visits(
+    animals_id INT,
+    vets_id INT,
+    date_of_the_visit date
+);
+
