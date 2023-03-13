@@ -63,3 +63,6 @@ insert into owners (full_name, email) select 'Owner ' || generate_series(1,25000
 
 -- create index on email to make the select query goes faster
 CREATE INDEX email_asc ON owners(email ASC);
+
+-- create index on animals id
+ CREATE INDEX animals_id_asc ON visits(animals_id ASC);
