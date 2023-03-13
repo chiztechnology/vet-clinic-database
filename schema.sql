@@ -51,3 +51,24 @@ CREATE TABLE visits(
     date_of_the_visit date
 );
 
+-- Add an email column to your owners table
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+
+-- This will add 3.594.280 visits considering you have 10 animals, 4 vets, and it will use around ~87.000 timestamps (~4min approx.)
+INSERT INTO visits (animals_id, vets_id, date_of_the_visit) SELECT * FROM (SELECT id FROM animals) animal_ids, (SELECT id FROM vets) vets_ids, generate_series('1980-01-01'::timestamp, '2021-01-01', '4 hours') visit_timestamp;
+
+-- This will add 2.500.000 owners with full_name = 'Owner <X>' and email = 'owner_<X>@email.com' (~2min approx.)
+insert into owners (full_name, email) select 'Owner ' || generate_series(1,2500000), 'owner_' || generate_series(1,2500000) || '@mail.com';
+
+-- create index on email to make the select query goes faster
+CREATE INDEX email_asc ON owners(email ASC);
+
+-- create index on animals id
+ CREATE INDEX animals_id_asc ON visits(animals_id ASC);
+
+ CREATE INDEX vets_id_asc ON visits(vets_id ASC);  
+
+ EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animals_id = 4;
+ EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com';
+ EXPLAIN ANALYZE SELECT * FROM visits where vet_id = 2;
